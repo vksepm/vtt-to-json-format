@@ -17,37 +17,28 @@
                     <i class="fas fa-closed-captioning text-3xl mr-3"></i>
                     <h1 class="text-2xl md:text-3xl font-bold">VTT to JSON Format Converter</h1>
                 </div>
-                <div class="flex space-x-4">
-                    <button id="theme-toggle" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all-custom rounded-full p-2">
-                        <i class="fas fa-moon text-lg"></i>
-                    </button>
-                    <a href="https://github.com/vksepm/vtt-to-json-format" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 transition-all-custom rounded-full p-2">
-                        <i class="fab fa-github text-lg"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </header>
 
     <main class="container mx-auto p-4 md:p-6">
-        <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all-custom hover:shadow-2xl mb-8 transform hover:-translate-y-1">
+        <div class="bg-white rounded-xl shadow-xl overflow-hidden transition-all-custom hover:shadow-2xl mb-8">
             <div class="p-6 md:p-8">
-                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">Convert your VTT subtitles to JSON</h2>
-                <p class="text-gray-600 mb-6">Simply paste your VTT (Web Video Text Tracks) data, and we will automatically convert it to a structured JSON format.</p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 relative">
+                <!-- Input and JSON Output -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative mb-6">
+                    <!-- Input Box -->
                     <div class="relative">
                         <div class="flex justify-between items-center mb-2">
                             <label for="vtt-input" class="text-gray-700 font-medium">Input VTT</label>
                             <div class="flex space-x-2">
-                                <button id="format-button" class="text-indigo-500 hover:text-indigo-700 flex items-center text-sm">
-                                    <i class="fas fa-indent mr-1"></i>Format
+                                <button id="clear-input-button" class="text-gray-500 hover:text-gray-700 flex items-center text-sm">
+                                    <i class="fas fa-trash-alt mr-1"></i>Clear
                                 </button>
                                 <button id="paste-button" class="text-blue-500 hover:text-blue-700 flex items-center text-sm">
                                     <i class="fas fa-paste mr-1"></i>Paste
                                 </button>
-                                <button id="clear-input-button" class="text-red-500 hover:text-red-700 flex items-center text-sm">
-                                    <i class="fas fa-trash-alt mr-1"></i>Clear
+                                <button id="format-button" class="text-purple-500 hover:text-purple-700 flex items-center text-sm">
+                                    <i class="fas fa-magic mr-1"></i>Format
                                 </button>
                             </div>
                         </div>
@@ -63,13 +54,22 @@
                         <div id="input-status" class="mt-2 text-sm"></div>
                     </div>
 
-                    <!-- Conversion button placed between the two input fields -->
+                    <!-- Circular Convert Button -->
                     <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 hidden lg:block">
-                        <button id="convert-button" class="gradient-bg text-white font-medium py-3 px-3 rounded-full shadow-md hover:shadow-lg transform transition-all-custom hover:-translate-y-1 flex items-center pulse-animation">
+                        <button id="convert-button" class="gradient-bg text-white rounded-full shadow-md hover:shadow-lg transform transition-all-custom">
                             <i class="fas fa-arrow-right text-xl"></i>
                         </button>
                     </div>
 
+                    <!-- Mobile Convert Button -->
+                    <div class="lg:hidden w-full flex justify-center my-4">
+                        <button id="convert-button-mobile" class="gradient-bg text-white hover:opacity-90 font-medium px-6 py-2 rounded-lg shadow transition-all flex items-center">
+                            <i class="fas fa-sync-alt mr-2"></i>
+                            Convert
+                        </button>
+                    </div>
+
+                    <!-- JSON Output Box -->
                     <div class="relative">
                         <div class="flex justify-between items-center mb-2">
                             <label for="schema-output" class="text-gray-700 font-medium">Generated JSON</label>
@@ -82,52 +82,24 @@
                                 </button>
                             </div>
                         </div>
-                        <pre id="schema-output" spellcheck="false" class="editor w-full bg-gray-50 border border-gray-300 rounded-lg p-4 text-gray-800 font-mono text-sm"></pre>
+                        <pre id="schema-output" class="editor w-full bg-gray-50 border border-gray-300 rounded-lg p-4 text-gray-800 font-mono text-sm"></pre>
                     </div>
                 </div>
-            </div>
 
-            <!-- Displayed on mobile devices -->
-            <div id="convert-action" class="flex justify-center p-4 bg-gray-50 border-t border-gray-200 lg:hidden">
-                <button id="convert-button-mobile" class="gradient-bg text-white font-medium py-2 px-6 rounded-full shadow-md hover:shadow-lg transform transition-all-custom hover:-translate-y-1 flex items-center pulse-animation">
-                    <i class="fas fa-magic mr-2"></i>Convert
-                </button>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="flex flex-col items-center text-center p-4 rounded-lg bg-blue-50 transition-all-custom hover:bg-blue-100">
-                    <div class="rounded-full bg-blue-500 text-white p-3 mb-3">
-                        <i class="fas fa-bolt text-xl"></i>
+                <!-- Plain Text Output Box - Full Width -->
+                <div class="relative mt-6 border-t pt-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="text-output" class="text-gray-700 font-medium">Extracted Text</label>
+                        <div class="flex space-x-2">
+                            <button id="copy-text-button" class="text-blue-500 hover:text-blue-700 flex items-center text-sm" disabled>
+                                <i class="fas fa-copy mr-1"></i>Copy
+                            </button>
+                            <button id="download-text-button" class="text-green-500 hover:text-green-700 flex items-center text-sm" disabled>
+                                <i class="fas fa-download mr-1"></i>Download
+                            </button>
+                        </div>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Auto Detection</h3>
-                    <p class="text-gray-600">When you paste JSON content, the system will automatically detect and prepare for conversion.</p>
-                </div>
-
-                <div class="flex flex-col items-center text-center p-4 rounded-lg bg-purple-50 transition-all-custom hover:bg-purple-100">
-                    <div class="rounded-full bg-purple-500 text-white p-3 mb-3">
-                        <i class="fas fa-code text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Accurate Conversion</h3>
-                    <p class="text-gray-600">Generate the corresponding JSON Schema definition based on your JSON data structure.</p>
-                </div>
-
-                <div class="flex flex-col items-center text-center p-4 rounded-lg bg-green-50 transition-all-custom hover:bg-green-100">
-                    <div class="rounded-full bg-green-500 text-white p-3 mb-3">
-                        <i class="fas fa-check-circle text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Quick Export</h3>
-                    <p class="text-gray-600">One-click copy or download of the generated JSON Schema for further use.</p>
-                </div>
-
-                <div class="flex flex-col items-center text-center p-4 rounded-lg bg-yellow-50 transition-all-custom hover:bg-yellow-100">
-                    <div class="rounded-full bg-yellow-500 text-white p-3 mb-3">
-                        <i class="fas fa-file-upload text-xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Drag and Drop Upload</h3>
-                    <p class="text-gray-600">Drag JSON files directly from the file explorer to the editor area for conversion.</p>
+                    <pre id="text-output" class="editor text-output w-full bg-gray-50 border border-gray-300 rounded-lg p-4 text-gray-800 font-mono text-sm"></pre>
                 </div>
             </div>
         </div>

@@ -6,30 +6,72 @@ body {
     background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
 }
 
+/* Circular convert button styles */
+#convert-button {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;  /* Remove padding to ensure perfect centering */
+}
+
+#convert-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+}
+
+#convert-button .fa-arrow-right {
+    margin: 0;  /* Remove any margins */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Enhance pulse animation */
+.pulse-animation {
+    animation: pulse-scale 2s infinite;
+}
+
+@keyframes pulse-scale {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+    }
+}
+
 .editor {
     min-height: 300px;
     max-height: 300px;
     overflow-y: auto;
+    white-space: pre;
     /* disable scrollbar */
     scrollbar-width: thin; /* Firefox */
     scrollbar-color: transparent transparent; /* Firefox */
 }
 
+/* Specific styles for text output */
+.text-output {
+    min-height: 200px;
+    max-height: 400px;
+    white-space: pre-wrap;       /* CSS3 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
 .editor:focus {
     outline: none;
-}
-
-@keyframes pulse-scale {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-.pulse-animation {
-    animation: pulse-scale 2s infinite;
 }
 
 .fade-in {
